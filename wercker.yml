@@ -1,7 +1,13 @@
-box: hashicorp/terraform
+box: debian:8
 
 build:
   steps:
+    - install-packages:
+      packages: wget unzip
+
+    - inokappa/terraform-install:
+      version: 0.7.13
+
     - script:
       name: set working directory
       code: |
