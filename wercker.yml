@@ -34,6 +34,9 @@ build:
 
 deploy:
   steps:
+    - install-packages:
+      packages: curl unzip
+
     - script:
       name: install terraform
       code: |
