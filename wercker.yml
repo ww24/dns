@@ -1,7 +1,20 @@
-box: hashicorp/terraform
+box: debian:8
 
 build:
   steps:
+    - install-packages:
+      packages: curl unzip
+
+    - script:
+      name: install terraform
+      code: |
+        mkdir -p $HOME/terraform
+        export PATH=$PATH:$HOME/terraform
+        cd $HOME/terraform
+        curl -sLO https://releases.hashicorp.com/terraform/0.7.13/terraform_0.7.13_linux_amd64.zip
+        unzip terraform_0.7.13_linux_amd64.zip
+        rm terraform_0.7.13_linux_amd64.zip
+
     - script:
       name: set working directory
       code: |
