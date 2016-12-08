@@ -30,6 +30,7 @@ build:
     - script:
       name: terraform plan
       code: |
+        ./remote-config.sh
         terraform plan -var-file=variables.tfvars
 
 deploy:
@@ -57,4 +58,5 @@ deploy:
     - script:
       name: terraform apply
       code: |
+        ./remote-config.sh
         terraform apply -var-file=variables.tfvars
