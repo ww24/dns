@@ -1,0 +1,8 @@
+.*
+!.gitignore
+
+# Terraform
+*.log
+*.tfstate
+*.tfstate.backup
+terraform/account.json

@@ -1,0 +1,26 @@
+box: hashicorp/terraform
+
+build:
+  steps:
+    - script:
+      name: set working directory
+      code: |
+        export WERCKER_SOURCE_DIR=$WERCKER_SOURCE_DIR/terraform
+        echo "WERCKER_SOURCE_DIR=$WERCKER_SOURCE_DIR"
+
+    - script:
+      name: generate account.json
+      code: |
+        ./account.json.template.sh > account.json
+
+    - script:
+      name: terraform plan
+      code: |
+        terraform plan -var-file=variables.tfvars
+
+deploy:
+  steps:
+    - script:
+      name: terraform apply
+      code: |
+        terraform apply -var-file=variables.tfvars
