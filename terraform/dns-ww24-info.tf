@@ -49,7 +49,7 @@ resource "google_dns_record_set" "spf_ww24_info" {
   type         = "SPF"
   ttl          = 300
   rrdatas      = [
-    "v=spf1 include:aspmx.googlemail.com ~all"
+    "\"v=spf1\" \"include:aspmx.googlemail.com\" \"~all\""
   ]
 }
 
@@ -59,7 +59,7 @@ resource "google_dns_record_set" "txt_ww24_info" {
   type         = "TXT"
   ttl          = 300
   rrdatas      = [
-    "google-site-verification=fj9pUiGr9xpc89EE6klRSbBq-LP2y1B-mL_dvV3ot8E"
+     "\"google-site-verification=fj9pUiGr9xpc89EE6klRSbBq-LP2y1B-mL_dvV3ot8E\""
   ]
 }
 
