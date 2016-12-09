@@ -14,6 +14,16 @@ resource "google_dns_record_set" "cname_jk_appcloud_info" {
   ]
 }
 
+resource "google_dns_record_set" "cname_wp_appcloud_info" {
+  managed_zone = "${google_dns_managed_zone.appcloud_info.name}"
+  name         = "wp.${google_dns_managed_zone.appcloud_info.dns_name}"
+  type         = "CNAME"
+  ttl          = 300
+  rrdatas      = [
+    "wp-mizuno2-1123190130.ap-northeast-1.elb.amazonaws.com."
+  ]
+}
+
 resource "null_resource" "nameservers_appcloud_info" {
   triggers {
     name_servers = "${join("\n", google_dns_managed_zone.appcloud_info.name_servers)}"
