@@ -1,9 +1,9 @@
-box: debian:8
+box: python:2.7
 
 build:
   steps:
     - install-packages:
-      packages: curl unzip
+      packages: unzip
 
     - script:
       name: install terraform
@@ -36,7 +36,7 @@ build:
 deploy:
   steps:
     - install-packages:
-      packages: curl unzip
+      packages: unzip
 
     - script:
       name: install terraform
@@ -48,6 +48,11 @@ deploy:
         curl -sLO https://releases.hashicorp.com/terraform/0.7.13/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
         unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
         rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+
+    - script:
+      name: install gsutil
+      code: |
+        pip install gsutil
 
     - script:
       name: set working directory
