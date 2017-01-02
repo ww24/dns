@@ -36,7 +36,7 @@ resource "google_dns_record_set" "cname_cocoa_ww24_jp" {
 }
 
 # 2017
-resource "google_dns_record_set" "cname_二千十七_ww24_jp" {
+resource "google_dns_record_set" "cname_xn--7gqvmp4jha_ww24_jp" {
   managed_zone = "${google_dns_managed_zone.ww24_jp.name}"
   name         = "xn--7gqvmp4jha.${google_dns_managed_zone.ww24_jp.dns_name}"
   type         = "CNAME"
