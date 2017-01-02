@@ -2,20 +2,6 @@ box: python:2.7
 
 build:
   steps:
-    - install-packages:
-      packages: unzip
-
-    - script:
-      name: install terraform
-      code: |
-        mkdir -p $HOME/terraform
-        export TERRAFORM_VERSION=0.7.13
-        export PATH=$PATH:$HOME/terraform
-        cd $HOME/terraform
-        curl -sLO https://releases.hashicorp.com/terraform/0.7.13/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-        unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-        rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-
     - script:
       name: set working directory
       code: |
@@ -27,28 +13,21 @@ build:
       code: |
         ./account.json.template.sh > account.json
 
-    - script:
-      name: terraform plan
-      code: |
-        ./remote-config.sh
-        terraform plan -var-file=variables.tfvars
+    - ww24/terraform:
+      command: plan
+      var_file: variables.tfvars
+      remote_config: |
+        -backend=gcs \
+        -backend-config='bucket=mocha-cloud-dns-tfstate' \
+        -backend-config='path=terraform.tfstate' \
+        -backend-config='project=mocha-cloud' \
+        -backend-config='credentials={ \
+          "private_key": "$GCP_PRIVATE_KEY", \
+          "client_email": "$GCP_CLIENT_EMAIL" \
+        }'
 
 deploy:
   steps:
-    - install-packages:
-      packages: unzip
-
-    - script:
-      name: install terraform
-      code: |
-        mkdir -p $HOME/terraform
-        export TERRAFORM_VERSION=0.7.13
-        export PATH=$PATH:$HOME/terraform
-        cd $HOME/terraform
-        curl -sLO https://releases.hashicorp.com/terraform/0.7.13/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-        unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-        rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-
     - script:
       name: install gsutil
       code: |
@@ -60,8 +39,15 @@ deploy:
         export WERCKER_SOURCE_DIR=$WERCKER_SOURCE_DIR/terraform
         echo "WERCKER_SOURCE_DIR=$WERCKER_SOURCE_DIR"
 
-    - script:
-      name: terraform apply
-      code: |
-        ./remote-config.sh
-        terraform apply -var-file=variables.tfvars
+    - ww24/terraform:
+      command: apply
+      var_file: variables.tfvars
+      remote_config: |
+        -backend=gcs \
+        -backend-config='bucket=mocha-cloud-dns-tfstate' \
+        -backend-config='path=terraform.tfstate' \
+        -backend-config='project=mocha-cloud' \
+        -backend-config='credentials={ \
+          "private_key": "$GCP_PRIVATE_KEY", \
+          "client_email": "$GCP_CLIENT_EMAIL" \
+        }'
