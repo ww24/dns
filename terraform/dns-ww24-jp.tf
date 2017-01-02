@@ -35,6 +35,17 @@ resource "google_dns_record_set" "cname_cocoa_ww24_jp" {
   ]
 }
 
+# 2017
+resource "google_dns_record_set" "cname_二千十七_ww24_jp" {
+  managed_zone = "${google_dns_managed_zone.ww24_jp.name}"
+  name         = "xn--7gqvmp4jha.${google_dns_managed_zone.ww24_jp.dns_name}"
+  type         = "CNAME"
+  ttl          = 3600
+  rrdatas      = [
+    "ww24.jp."
+  ]
+}
+
 # TV
 resource "google_dns_record_set" "a_tv_ww24_jp" {
   managed_zone = "${google_dns_managed_zone.ww24_jp.name}"
