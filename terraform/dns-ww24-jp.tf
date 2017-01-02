@@ -84,7 +84,7 @@ resource "google_dns_record_set" "spf_ww24_jp" {
   type         = "SPF"
   ttl          = 3600
   rrdatas      = [
-    "v=spf1 mx include:aspmx.googlemail.com -all"
+    "\"v=spf1\" \"mx\" \"include:aspmx.googlemail.com\" \"-all\""
   ]
 }
 
@@ -94,7 +94,7 @@ resource "google_dns_record_set" "txt_ww24_jp" {
   type         = "TXT"
   ttl          = 3600
   rrdatas      = [
-     "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+jIuLyZofGXW2IDtb+6EG2utpd9yooZzLterDb8kVSQGmnXZL7kQDn5zYMgI+yXxr2dUeK9CUUueFVeKkhRTsuWDa7t/ktxhLbuS3Y/UVAIBJleMewdE5X8nNI7tljufX0AA2KtzY1lyjICWMIH5K0T2YdQafZRrsibQNfs+x9QIDAQAB"
+     "\"v=DKIM1;\" \"k=rsa;\" \"p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+jIuLyZofGXW2IDtb+6EG2utpd9yooZzLterDb8kVSQGmnXZL7kQDn5zYMgI+yXxr2dUeK9CUUueFVeKkhRTsuWDa7t/ktxhLbuS3Y/UVAIBJleMewdE5X8nNI7tljufX0AA2KtzY1lyjICWMIH5K0T2YdQafZRrsibQNfs+x9QIDAQAB\""
   ]
 }
 
