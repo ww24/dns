@@ -3,12 +3,6 @@ box: python:2.7
 build:
   steps:
     - script:
-      name: set working directory
-      code: |
-        export WERCKER_SOURCE_DIR=$WERCKER_SOURCE_DIR/terraform
-        echo "WERCKER_SOURCE_DIR=$WERCKER_SOURCE_DIR"
-
-    - script:
       name: generate account.json
       code: |
         cat <<EOF > account.json
@@ -37,12 +31,6 @@ deploy:
       name: install gsutil
       code: |
         pip install gsutil
-
-    - script:
-      name: set working directory
-      code: |
-        export WERCKER_SOURCE_DIR=$WERCKER_SOURCE_DIR/terraform
-        echo "WERCKER_SOURCE_DIR=$WERCKER_SOURCE_DIR"
 
     - ww24/terraform:
       command: apply
