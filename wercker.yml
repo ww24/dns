@@ -11,7 +11,12 @@ build:
     - script:
       name: generate account.json
       code: |
-        ./account.json.template.sh > account.json
+        cat <<EOF > account.json
+        {
+          "private_key": "$GCP_PRIVATE_KEY",
+          "client_email": "$GCP_CLIENT_EMAIL"
+        }
+        EOF
 
     - ww24/terraform:
       command: plan
