@@ -35,20 +35,9 @@ resource "google_dns_record_set" "cname_cocoa_ww24_jp" {
   ]
 }
 
-# 二〇一七.ww24.jp
-resource "google_dns_record_set" "cname_xn--w6j351gja95c_ww24_jp" {
+resource "google_dns_record_set" "cname_pps_ww24_jp" {
   managed_zone = "${google_dns_managed_zone.ww24_jp.name}"
-  name         = "xn--w6j351gja95c.${google_dns_managed_zone.ww24_jp.dns_name}"
-  type         = "CNAME"
-  ttl          = 3600
-  rrdatas      = [
-    "ww24.jp."
-  ]
-}
-# 二千十七.ww24.jp
-resource "google_dns_record_set" "cname_xn--7gqvmp4jha_ww24_jp" {
-  managed_zone = "${google_dns_managed_zone.ww24_jp.name}"
-  name         = "xn--7gqvmp4jha.${google_dns_managed_zone.ww24_jp.dns_name}"
+  name         = "pps.${google_dns_managed_zone.ww24_jp.dns_name}"
   type         = "CNAME"
   ttl          = 3600
   rrdatas      = [
