@@ -14,6 +14,7 @@ resource "google_dns_record_set" "cname_jk_appcloud_info" {
   ]
 }
 
+# Firebase
 resource "google_dns_record_set" "txt_auth_appcloud_info" {
   managed_zone = "${google_dns_managed_zone.appcloud_info.name}"
   name         = "auth.${google_dns_managed_zone.appcloud_info.dns_name}"
@@ -21,7 +22,8 @@ resource "google_dns_record_set" "txt_auth_appcloud_info" {
   ttl          = 3600
   rrdatas      = [
     "v=spf1 include:_spf.firebasemail.com ~all",
-    "firebase=coconut-ed350"
+    "firebase=coconut-ed350",
+    "google-site-verification=2gOsQ2_RiBj1ZariaFbJdAWoPhdE72oOv8MW1fbInak"
   ]
 }
 
