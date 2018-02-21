@@ -9,7 +9,7 @@ resource "google_dns_record_set" "txt_firebase_ww24_jp" {
   managed_zone = "${google_dns_managed_zone.ww24_jp.name}"
   name         = "${google_dns_managed_zone.ww24_jp.dns_name}"
   type         = "TXT"
-  ttl          = 3600
+  ttl          = 300
   rrdatas      = [
      "google-site-verification=CzHYWVVMLrEsgc9ZuASLD-pU7LEmDer1_HNXBiVOAwA"
   ]
@@ -19,7 +19,7 @@ resource "google_dns_record_set" "a_ww24_jp" {
   managed_zone = "${google_dns_managed_zone.ww24_jp.name}"
   name         = "${google_dns_managed_zone.ww24_jp.dns_name}"
   type         = "A"
-  ttl          = 3600
+  ttl          = 300
   rrdatas      = [
     "151.101.1.195",
     "151.101.65.195"
@@ -27,11 +27,11 @@ resource "google_dns_record_set" "a_ww24_jp" {
 }
 
 # cocoa VPS (deprecated)
-resource "google_dns_record_set" "cname_cocoa_ww24_jp" {
+resource "google_dns_record_set" "a_cocoa_ww24_jp" {
   managed_zone = "${google_dns_managed_zone.ww24_jp.name}"
   name         = "cocoa.${google_dns_managed_zone.ww24_jp.dns_name}"
-  type         = "CNAME"
-  ttl          = 3600
+  type         = "A"
+  ttl          = 300
   rrdatas      = [
     "160.16.52.211"
   ]
