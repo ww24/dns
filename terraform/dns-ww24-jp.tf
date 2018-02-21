@@ -4,6 +4,17 @@ resource "google_dns_managed_zone" "ww24_jp" {
   description = "ww24.jp zone"
 }
 
+# Firebase Hosting
+resource "google_dns_record_set" "txt_firebase_ww24_jp" {
+  managed_zone = "${google_dns_managed_zone.ww24_jp.name}"
+  name         = "${google_dns_managed_zone.ww24_jp.dns_name}"
+  type         = "TXT"
+  ttl          = 3600
+  rrdatas      = [
+     "google-site-verification=CzHYWVVMLrEsgc9ZuASLD-pU7LEmDer1_HNXBiVOAwA"
+  ]
+}
+
 # cocoa VPS
 resource "google_dns_record_set" "a_ww24_jp" {
   managed_zone = "${google_dns_managed_zone.ww24_jp.name}"
