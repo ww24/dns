@@ -18,7 +18,7 @@ build:
         }
         EOF
 
-    - ww24/terraform:
+    - ww24/terraform@0.8.8:
       command: plan
       var_file: variables.tfvars
       remote_config: |
