@@ -18,11 +18,10 @@ build:
         }
         EOF
 
-    - ww24/terraform@0.9.11:
+    - ww24/terraform@0.9.11.1:
       command: plan
       var_file: variables.tfvars
-      remote_config: |
-        -backend-config='backend.config'
+      backend_config: backend.tf
 
 deploy:
   steps:
