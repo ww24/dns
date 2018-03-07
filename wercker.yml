@@ -21,7 +21,7 @@ build:
     - ww24/terraform@0.9.12-test:
       command: plan
       var_file: variables.tfvars
-      backend_config: backend.tf
+      backend_config: backend.config
 
 deploy:
   steps:
