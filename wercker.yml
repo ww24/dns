@@ -24,7 +24,7 @@ build:
     - script:
       name: generate backend.tf
       code: |
-        ACCOUNT_JSON="$(cat account.json)"
+        export ACCOUNT_JSON="$(cat account.json)"
         envsubst < backend.tf.template > backend.tf
 
     - script:
