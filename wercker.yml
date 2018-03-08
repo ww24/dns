@@ -2,6 +2,9 @@ box: python:2.7
 
 build:
   steps:
+    - install-packages:
+      packages: gettext
+
     - script:
       name: set working directory
       code: |
@@ -18,10 +21,15 @@ build:
         }
         EOF
 
+    - script:
+      name: generate backend.tf
+      code: |
+        ACCOUNT_JSON="$(cat account.json)"
+        envsubst < backend.tf.template > backend.tf
+
     - ww24/terraform@0.11.3-rc.1:
       command: plan
       var_file: variables.tfvars
-      backend_config: backend.config
 
 deploy:
   steps:
