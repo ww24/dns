@@ -8,7 +8,7 @@ build:
     - script:
       name: set working directory
       code: |
-        export WERCKER_SOURCE_DIR=$WERCKER_SOURCE_DIR/terraform
+        export WERCKER_SOURCE_DIR="$WERCKER_SOURCE_DIR/terraform"
         echo "WERCKER_SOURCE_DIR=$WERCKER_SOURCE_DIR"
 
     - script:
@@ -20,11 +20,11 @@ build:
           "client_email": "$GCP_CLIENT_EMAIL"
         }
         EOF
+        export GOOGLE_APPLICATION_CREDENTIALS="${$WERCKER_SOURCE_DIR}/account.json"
 
     - script:
       name: generate backend.tf
       code: |
-        export ACCOUNT_JSON="$(cat account.json)"
         envsubst < backend.tf.template > backend.tf
 
     - script:
@@ -35,7 +35,6 @@ build:
     - ww24/terraform@0.11.3-rc.2:
       command: plan
       var_file: variables.tfvars
-      backend_config: backend.tf
 
 deploy:
   steps:
@@ -47,18 +46,9 @@ deploy:
     - script:
       name: set working directory
       code: |
-        export WERCKER_SOURCE_DIR=$WERCKER_SOURCE_DIR/terraform
+        export WERCKER_SOURCE_DIR="$WERCKER_SOURCE_DIR/terraform"
         echo "WERCKER_SOURCE_DIR=$WERCKER_SOURCE_DIR"
 
-    - ww24/terraform:
-      command: apply
+    - ww24/terraform@0.11.3-rc.2:
+      command: plan
       var_file: variables.tfvars
-      remote_config: |
-        -backend=gcs \
-        -backend-config='bucket=mocha-cloud-dns-tfstate' \
-        -backend-config='path=terraform.tfstate' \
-        -backend-config='project=mocha-cloud' \
-        -backend-config='credentials={ \
-          "private_key": "$GCP_PRIVATE_KEY", \
-          "client_email": "$GCP_CLIENT_EMAIL" \
-        }'
