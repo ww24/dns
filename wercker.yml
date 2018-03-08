@@ -24,7 +24,7 @@ build:
     - script:
       name: generate backend.tf
       code: |
-        export ACCOUNT_JSON=$(cat account.json | sed -e 's/"/\\"/g')
+        export ACCOUNT_JSON="$(cat account.json | sed -e 's/"/\\"/g')"
         envsubst < backend.tf.template > backend.tf
         cat backend.tf
 
