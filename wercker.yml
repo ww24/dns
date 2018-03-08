@@ -20,11 +20,11 @@ build:
           "client_email": "${GCP_CLIENT_EMAIL}"
         }
         EOF
-        export GOOGLE_APPLICATION_CREDENTIALS="${WERCKER_SOURCE_DIR}/account.json"
 
     - script:
       name: generate backend.tf
       code: |
+        ACCOUNT_JSON=$(cat account.json | sed -e 's/"/\\"/g')
         envsubst < backend.tf.template > backend.tf
 
     - script:
