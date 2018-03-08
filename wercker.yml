@@ -15,10 +15,7 @@ build:
       name: generate account.json
       code: |
         cat <<EOF > account.json
-        {
-          "private_key": "${GCP_PRIVATE_KEY}",
-          "client_email": "${GCP_CLIENT_EMAIL}"
-        }
+        { "private_key": "${GCP_PRIVATE_KEY}", "client_email": "${GCP_CLIENT_EMAIL}" }
         EOF
 
     - script:
@@ -32,7 +29,6 @@ build:
       name: generate variables.tfvars
       code: |
         envsubst < variables.tfvars.template > variables.tfvars
-        cat variables.tfvars
 
     - ww24/terraform@0.11.3-rc.2:
       command: plan
