@@ -1,8 +1,8 @@
 terraform {
   backend "gcs" {
     credentials = "${ACCOUNT_JSON}"
-    project = "${PROJECT_ID}"
-    bucket = "${BUCKET_NAME}"
+    project = "${GCP_PROJECT_ID}"
+    bucket = "${GCS_BUCKET_NAME}"
     prefix = "terraform"
   }
 }

@@ -1,0 +1,2 @@
+project              = "${GCP_PROJECT_ID}"
+remote_state_bucket  = "${GCS_BUCKET_NAME}"

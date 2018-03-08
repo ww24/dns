@@ -27,6 +27,11 @@ build:
         ACCOUNT_JSON="$(cat account.json)"
         envsubst < backend.tf.template > backend.tf
 
+    - script:
+      name: generate variables.tfvars
+      code: |
+        envsubst < variables.tfvars.template > variables.tfvars
+
     - ww24/terraform@0.11.3-rc.1:
       command: plan
       var_file: variables.tfvars
