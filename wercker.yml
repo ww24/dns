@@ -26,11 +26,13 @@ build:
       code: |
         ACCOUNT_JSON=$(cat account.json | sed -e 's/"/\\"/g')
         envsubst < backend.tf.template > backend.tf
+        cat backend.tf
 
     - script:
       name: generate variables.tfvars
       code: |
         envsubst < variables.tfvars.template > variables.tfvars
+        cat variables.tfvars
 
     - ww24/terraform@0.11.3-rc.2:
       command: plan
