@@ -2,34 +2,37 @@ box: python:2.7
 
 build:
   steps:
+    - install-packages:
+      packages: gettext
+
     - script:
       name: set working directory
       code: |
-        export WERCKER_SOURCE_DIR=$WERCKER_SOURCE_DIR/terraform
-        echo "WERCKER_SOURCE_DIR=$WERCKER_SOURCE_DIR"
+        export WERCKER_SOURCE_DIR="${WERCKER_SOURCE_DIR}/terraform"
+        echo "WERCKER_SOURCE_DIR=${WERCKER_SOURCE_DIR}"
 
     - script:
       name: generate account.json
       code: |
         cat <<EOF > account.json
-        {
-          "private_key": "$GCP_PRIVATE_KEY",
-          "client_email": "$GCP_CLIENT_EMAIL"
-        }
+        { "private_key": "${GCP_PRIVATE_KEY}", "client_email": "${GCP_CLIENT_EMAIL}" }
         EOF
 
-    - ww24/terraform:
+    - script:
+      name: generate backend.tf
+      code: |
+        export ACCOUNT_JSON="$(cat account.json | sed -e 's/"/\\"/g')"
+        envsubst < backend.tf.template > backend.tf
+        cat backend.tf
+
+    - script:
+      name: generate variables.tfvars
+      code: |
+        envsubst < variables.tfvars.template > variables.tfvars
+
+    - ww24/terraform@0.11.3-rc.2:
       command: plan
       var_file: variables.tfvars
-      remote_config: |
-        -backend=gcs \
-        -backend-config='bucket=mocha-cloud-dns-tfstate' \
-        -backend-config='path=terraform.tfstate' \
-        -backend-config='project=mocha-cloud' \
-        -backend-config='credentials={ \
-          "private_key": "$GCP_PRIVATE_KEY", \
-          "client_email": "$GCP_CLIENT_EMAIL" \
-        }'
 
 deploy:
   steps:
@@ -41,18 +44,9 @@ deploy:
     - script:
       name: set working directory
       code: |
-        export WERCKER_SOURCE_DIR=$WERCKER_SOURCE_DIR/terraform
-        echo "WERCKER_SOURCE_DIR=$WERCKER_SOURCE_DIR"
+        export WERCKER_SOURCE_DIR="${WERCKER_SOURCE_DIR}/terraform"
+        echo "WERCKER_SOURCE_DIR=${WERCKER_SOURCE_DIR}"
 
-    - ww24/terraform:
-      command: apply
+    - ww24/terraform@0.11.3-rc.2:
+      command: plan
       var_file: variables.tfvars
-      remote_config: |
-        -backend=gcs \
-        -backend-config='bucket=mocha-cloud-dns-tfstate' \
-        -backend-config='path=terraform.tfstate' \
-        -backend-config='project=mocha-cloud' \
-        -backend-config='credentials={ \
-          "private_key": "$GCP_PRIVATE_KEY", \
-          "client_email": "$GCP_CLIENT_EMAIL" \
-        }'

@@ -3,6 +3,6 @@ variable "region" {
 }
 variable "project" {}
 variable "remote_state_bucket" {}
-variable "remote_state_path" {
-  default = "terraform.tfstate"
+variable "remote_state_prefix" {
+  default = "terraform"
 }

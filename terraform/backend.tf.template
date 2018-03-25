@@ -1,0 +1,8 @@
+terraform {
+  backend "gcs" {
+    credentials = "${ACCOUNT_JSON}"
+    project = "${GCP_PROJECT_ID}"
+    bucket = "${GCS_BUCKET_NAME}"
+    prefix = "terraform"
+  }
+}
