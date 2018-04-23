@@ -18,7 +18,7 @@ build:
         }
         EOF
 
-    - ww24/terraform:
+    - ww24/terraform@0.8.8:
       command: plan
       var_file: variables.tfvars
       remote_config: |
@@ -44,7 +44,7 @@ deploy:
         export WERCKER_SOURCE_DIR=$WERCKER_SOURCE_DIR/terraform
         echo "WERCKER_SOURCE_DIR=$WERCKER_SOURCE_DIR"
 
-    - ww24/terraform:
+    - ww24/terraform@0.8.8:
       command: apply
       var_file: variables.tfvars
       remote_config: |
