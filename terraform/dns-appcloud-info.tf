@@ -14,6 +14,16 @@ resource "google_dns_record_set" "cname_jk_appcloud_info" {
   ]
 }
 
+resource "google_dns_record_set" "cname_maquia_appcloud_info" {
+  managed_zone = "${google_dns_managed_zone.appcloud_info.name}"
+  name         = "maquia.${google_dns_managed_zone.appcloud_info.dns_name}"
+  type         = "CNAME"
+  ttl          = 300
+  rrdatas      = [
+    "stoic-pasteur-a46fa6.netlify.com."
+  ]
+}
+
 # Firebase
 resource "google_dns_record_set" "txt_auth_appcloud_info" {
   managed_zone = "${google_dns_managed_zone.appcloud_info.name}"
