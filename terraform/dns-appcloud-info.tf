@@ -24,13 +24,14 @@ resource "google_dns_record_set" "cname_maquia_appcloud_info" {
   ]
 }
 
-resource "google_dns_record_set" "txt_maquia_appcloud_info" {
+# for maquia.appcloud.info verification by google search console
+resource "google_dns_record_set" "cname_coxdxtdgteud_maquia_appcloud_info" {
   managed_zone = "${google_dns_managed_zone.appcloud_info.name}"
-  name         = "maquia.${google_dns_managed_zone.appcloud_info.dns_name}"
-  type         = "TXT"
+  name         = "coxdxtdgteud.maquia.${google_dns_managed_zone.appcloud_info.dns_name}"
+  type         = "CNAME"
   ttl          = 3600
   rrdatas      = [
-    "google-site-verification=l4s_gwXWg7ZmPPDaR3uknE1wqh5T73D-0mNg2E0HNYs"
+    "gv-6h4wvqhoyxixmf.dv.googlehosted.com."
   ]
 }
 
