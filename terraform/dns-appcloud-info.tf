@@ -4,6 +4,16 @@ resource "google_dns_managed_zone" "appcloud_info" {
   description = "appcloud.info zone"
 }
 
+resource "google_dns_record_set" "txt_appcloud_info" {
+  managed_zone = "${google_dns_managed_zone.appcloud_info.name}"
+  name         = "${google_dns_managed_zone.appcloud_info.dns_name}"
+  type         = "TXT"
+  ttl          = 3600
+  rrdatas      = [
+    "google-site-verification=l4s_gwXWg7ZmPPDaR3uknE1wqh5T73D-0mNg2E0HNYs"
+  ]
+}
+
 resource "google_dns_record_set" "cname_jk_appcloud_info" {
   managed_zone = "${google_dns_managed_zone.appcloud_info.name}"
   name         = "jk.${google_dns_managed_zone.appcloud_info.dns_name}"
