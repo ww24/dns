@@ -26,28 +26,6 @@ resource "google_dns_record_set" "a_ww24_jp" {
   ]
 }
 
-# cocoa VPS (deprecated)
-resource "google_dns_record_set" "a_cocoa_ww24_jp" {
-  managed_zone = "${google_dns_managed_zone.ww24_jp.name}"
-  name         = "cocoa.${google_dns_managed_zone.ww24_jp.dns_name}"
-  type         = "A"
-  ttl          = 300
-  rrdatas      = [
-    "160.16.52.211"
-  ]
-}
-
-# TV
-resource "google_dns_record_set" "a_tv_ww24_jp" {
-  managed_zone = "${google_dns_managed_zone.ww24_jp.name}"
-  name         = "tv.${google_dns_managed_zone.ww24_jp.dns_name}"
-  type         = "A"
-  ttl          = 3600
-  rrdatas      = [
-    "172.24.24.240"
-  ]
-}
-
 # Mail
 resource "google_dns_record_set" "mx_ww24_jp" {
   managed_zone = "${google_dns_managed_zone.ww24_jp.name}"
